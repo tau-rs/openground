@@ -1,32 +1,42 @@
 schema: spec-driven
 
-# Project context (optional)
-# Add only constraints that should guide OpenSpec artifacts and workflows.
-# Include constraints an agent cannot infer by reading the code.
-# Keep general project documentation and discoverable codebase facts out.
-# Example:
-#   context: |
-#     Designs and tasks must cover Windows, macOS, and Linux
-#     Write all artifacts in Spanish
+# Constraints an agent cannot infer from the code. The record itself is in design/
+# (ADRs, glossary, adr-challenge) and the handoff of 2026-11-01.
+context: |
+  openground is the headless core (facts, declarations, changes, actors, worktrees,
+  projections, lenses, one API) of a codebase mostly written by agents. Screens are
+  products on the API. The core is the product (ADR 0040, 0041).
 
-# Per-artifact rules (optional)
-# Add custom rules for specific artifacts.
-# Example:
-#   rules:
-#     proposal:
-#       - Keep proposals under 500 words
-#       - Always state what is out of scope
-#     tasks:
-#       - Break tasks into chunks of max 2 hours
+  Vocabulary: design/glossary.md is the whole vocabulary of the core. A word not in it
+  is not used in code, specs, docs or UI. Dropped words are listed there; the old name
+  "arch" in old files means openground.
 
-# Per-operation guidance (optional)
-# Add advisory guidance for how apply and archive work should be conducted.
-# This is separate from artifact rules above.
-# Example:
-#   operations:
-#     apply:
-#       guidance:
-#         - Keep test summaries concise
-#     archive:
-#       guidance:
-#         - Summarize the archive outcome before finishing
+  Hard rule: nothing cockpit-shaped in the core, in any crate, in any file: no session,
+  plan, ask, gate, judge, verdict, task. A harness owns those. If a change needs one,
+  it stops and files an ADR first.
+
+  Gates (handoff §5): nothing of loupe or map before `project` passes its cold check on
+  both tiers; nothing of guard, MCP, lenses or declarations before assumption A is
+  confronted; a product never reaches past the API.
+
+  Explain with the orderly example (ship / pay / notify). Short outputs; structure
+  before detail. When code contradicts a decision, say so; do not adapt quietly.
+
+  Rust: hexagonal boundaries, dependencies point inward; thiserror at crate
+  boundaries, anyhow inside; forbid(unsafe_code); tests are part of done.
+
+rules:
+  proposal:
+    - >-
+      Name the assumption this change confronts (A–E in design/glossary.md, or
+      "none, foundation") and its pass criterion, fixed before building (ADR 0044).
+    - State what is out of scope and which gate, if any, the change must not cross.
+  specs:
+    - Requirements use glossary words only; one behaviour per requirement.
+    - A capability is one of core · loupe · map · devops unless an ADR adds one.
+  design:
+    - Each decision states the WHY in one sentence and one honest consequence.
+  tasks:
+    - >-
+      A task touching the fact model or a projection names the test that proves it
+      (incremental_equals_cold, a golden, a cold check).
