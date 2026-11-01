@@ -22,6 +22,11 @@ context: |
   Explain with the orderly example (ship / pay / notify). Short outputs; structure
   before detail. When code contradicts a decision, say so; do not adapt quietly.
 
+  Facts are style-free: a fact uses only words the compiler and the operating system
+  know (call, trait, http, sql, inbound, outbound). Every architecture style's words
+  (driving, driven, domain, layer, ring) live in its lens. A lens must be writable with
+  no core change (ADR 0047); if it is not, the fact model is wrong.
+
   Rust: hexagonal boundaries, dependencies point inward; thiserror at crate
   boundaries, anyhow inside; forbid(unsafe_code); tests are part of done.
 
