@@ -12,8 +12,8 @@
 
 ## 3. Settle
 
-- [ ] 3.1 Record Titouan's answers to Q-1, Q-2, Q-3 in §5 as decisions, with the date; verify: §5 has no open question left and Change 001's rename list is derivable from it.
-- [ ] 3.2 `openspec validate 000-crate-review` passes; verify: exit 0.
+- [x] 3.1 Record Titouan's answers to Q-1, Q-2, Q-3 in §5 as decisions, with the date; verify: §5 has no open question left and Change 001's rename list is derivable from it.
+- [x] 3.2 `openspec validate 000-crate-review` passes; verify: exit 0.
 
 ## Workflow follow-up
 
